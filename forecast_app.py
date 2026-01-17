@@ -490,56 +490,33 @@ st.markdown("""
         border-radius: 12px !important;
     }
 
-    /* Slider */
-    .stSlider > div > div > div {
+    /* Slider track - keep orange */
+    .stSlider [data-baseweb="slider"] > div > div {
         background: #FF9500 !important;
     }
 
-    /* Remove ALL orange highlights on slider labels */
+    /* Remove orange highlight ONLY on slider min/max labels when focused */
     .stSlider [data-testid="stTickBarMin"],
-    .stSlider [data-testid="stTickBarMax"],
-    .stSlider div[data-testid="stTickBarMin"],
-    .stSlider div[data-testid="stTickBarMax"],
-    [data-testid="stSlider"] [data-testid="stTickBarMin"],
-    [data-testid="stSlider"] [data-testid="stTickBarMax"] {
-        background: none !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-
-    /* Remove focus states from all slider elements */
-    .stSlider *:focus,
-    .stSlider *:focus-visible,
-    .stSlider *:active,
-    [data-testid="stSlider"] *:focus,
-    [data-testid="stSlider"] *:focus-visible,
-    [data-testid="stSlider"] *:active {
-        outline: none !important;
-        box-shadow: none !important;
-        background: none !important;
-        background-color: transparent !important;
-    }
-
-    /* Target the actual tick bar containers */
-    .stSlider > div > div > div:first-child,
-    .stSlider > div > div > div:last-child {
-        background: none !important;
-    }
-
-    /* Ensure slider value display doesn't have orange background */
-    .stSlider [data-testid="stThumbValue"],
-    [data-testid="stSlider"] [data-testid="stThumbValue"] {
-        background: none !important;
-        background-color: transparent !important;
-    }
-
-    /* Override any baseui slider focus styles */
-    [data-baseweb="slider"] *:focus,
-    [data-baseweb="slider"] *:focus-within {
-        background: none !important;
+    .stSlider [data-testid="stTickBarMax"] {
+        background: transparent !important;
         background-color: transparent !important;
         box-shadow: none !important;
         outline: none !important;
+    }
+
+    /* Remove focus outline from slider labels only */
+    .stSlider [data-testid="stTickBarMin"]:focus,
+    .stSlider [data-testid="stTickBarMin"]:focus-visible,
+    .stSlider [data-testid="stTickBarMax"]:focus,
+    .stSlider [data-testid="stTickBarMax"]:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    /* Ensure slider value/thumb display doesn't have background */
+    .stSlider [data-testid="stThumbValue"] {
+        background: transparent !important;
     }
 
     /* Expander */
