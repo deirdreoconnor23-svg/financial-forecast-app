@@ -1751,6 +1751,22 @@ def main():
         # DATA LOADED - Show Complete Vertical Workflow
         # =====================================================================
 
+        # Logo and header for continuity
+        st.markdown("""
+        <div class="app-header">
+            <div class="app-logo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M3 3v18h18"/>
+                    <path d="M18 9l-5 5-4-4-3 3"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="app-title">Forecast</h1>
+                <p class="app-subtitle">Financial Forecasting Tool</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
         # Auto-detect columns
         detected_date_col = detect_date_column(df)
         numeric_columns = detect_numeric_columns(df, detected_date_col)
@@ -1988,11 +2004,11 @@ def main():
             col1, col2, col3 = st.columns(3)
 
             with col1:
-                st.metric("Historical Avg", f"€{metrics['historical_avg']:,.0f}")
+                st.metric("Historical Avg", f"€{metrics['historical_avg']:,.0f}", help="The average monthly value from your historical data. This represents your typical performance over the uploaded period.")
             with col2:
-                st.metric("Forecast Avg", f"€{metrics['forecast_avg']:,.0f}")
+                st.metric("Forecast Avg", f"€{metrics['forecast_avg']:,.0f}", help="The predicted average monthly value for the forecast period. Based on trends and patterns identified in your historical data.")
             with col3:
-                st.metric("Projected Growth", f"{metrics['growth_rate']:+.1f}%")
+                st.metric("Projected Growth", f"{metrics['growth_rate']:+.1f}%", help="The percentage change between your historical average and forecast average. Positive values indicate growth, negative values indicate decline.")
 
             # Downloads
             st.markdown("---")
