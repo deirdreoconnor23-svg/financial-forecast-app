@@ -269,6 +269,19 @@ st.markdown("""
         text-align: left !important;
     }
 
+    /* Make toggle button invisible but still clickable, positioned over the header */
+    [data-testid="stSidebar"] .stButton {
+        margin-top: -52px !important;
+        position: relative;
+        z-index: 10;
+    }
+
+    [data-testid="stSidebar"] .stButton > button {
+        height: 52px !important;
+        opacity: 0 !important;
+        cursor: pointer !important;
+    }
+
     /* Data indicator in sidebar */
     .data-indicator {
         background: rgba(255, 255, 255, 0.1);
@@ -1574,8 +1587,22 @@ def main():
         if 'show_how_it_works' not in st.session_state:
             st.session_state.show_how_it_works = False
 
-        # Toggle button styled as nav item
-        if st.button("ℹ️  How It Works", key="how_it_works_btn", use_container_width=True):
+        # Custom styled header (matching Data Source style)
+        st.markdown("""
+        <div class="sidebar-section-header" id="how-it-works-header">
+            <div class="sidebar-section-icon info">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+            </div>
+            <span class="sidebar-section-title">How It Works</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Hidden button for toggle functionality
+        if st.button("Toggle Info", key="how_it_works_btn", use_container_width=True):
             st.session_state.show_how_it_works = not st.session_state.show_how_it_works
 
         if st.session_state.show_how_it_works:
