@@ -495,6 +495,28 @@ st.markdown("""
         background: #FF9500 !important;
     }
 
+    /* Remove orange highlight on slider min/max labels when focused */
+    .stSlider [data-testid="stTickBarMin"],
+    .stSlider [data-testid="stTickBarMax"],
+    .stSlider [data-baseweb="slider"] [data-testid="stTickBarMin"],
+    .stSlider [data-baseweb="slider"] [data-testid="stTickBarMax"] {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+
+    /* Remove focus highlight on slider thumb and labels */
+    .stSlider *:focus,
+    .stSlider *:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+    }
+
+    /* Ensure slider value display doesn't have orange background */
+    .stSlider [data-testid="stThumbValue"] {
+        background: transparent !important;
+    }
+
     /* Expander */
     .streamlit-expanderHeader {
         background: #FFFFFF !important;
