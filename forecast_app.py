@@ -240,9 +240,15 @@ st.markdown("""
         width: 100%;
         border: none !important;
         border-radius: 10px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    [data-testid="stSidebar"] .stButton > button p,
+    [data-testid="stSidebar"] .stButton > button div,
+    [data-testid="stSidebar"] .stButton > button span {
         text-align: left !important;
         justify-content: flex-start !important;
-        transition: all 0.2s ease !important;
+        width: 100% !important;
     }
 
     [data-testid="stSidebar"] .stButton > button:hover {
@@ -254,6 +260,13 @@ st.markdown("""
     [data-testid="stSidebar"] .stButton > button:focus {
         box-shadow: none !important;
         outline: none !important;
+    }
+
+    /* Force left alignment on button content */
+    [data-testid="stSidebar"] .stButton > button > div {
+        display: flex !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
     }
 
     /* Data indicator in sidebar */
