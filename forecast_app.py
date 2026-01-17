@@ -494,8 +494,9 @@ st.markdown("""
         margin: 4px 0;
     }
 
-    /* Sidebar expander - Step styling */
-    [data-testid="stSidebar"] .streamlit-expanderHeader {
+    /* Sidebar expander - Step styling (supports both old and new Streamlit versions) */
+    [data-testid="stSidebar"] .streamlit-expanderHeader,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary {
         background: rgba(255, 255, 255, 0.06) !important;
         border-radius: 10px !important;
         padding: 12px 16px !important;
@@ -503,14 +504,17 @@ st.markdown("""
         font-size: 14px !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         transition: all 0.2s ease !important;
+        color: #FFFFFF !important;
     }
 
-    [data-testid="stSidebar"] .streamlit-expanderHeader:hover {
+    [data-testid="stSidebar"] .streamlit-expanderHeader:hover,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary:hover {
         background: rgba(255, 255, 255, 0.1) !important;
         border-color: rgba(255, 255, 255, 0.15) !important;
     }
 
-    [data-testid="stSidebar"] .streamlit-expanderContent {
+    [data-testid="stSidebar"] .streamlit-expanderContent,
+    [data-testid="stSidebar"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
         background: rgba(255, 255, 255, 0.03);
         border-radius: 0 0 10px 10px;
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -519,11 +523,14 @@ st.markdown("""
         margin-top: -4px;
     }
 
-    /* Step number/checkmark styling */
+    /* Expander text styling */
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary span,
+    [data-testid="stSidebar"] [data-testid="stExpander"] summary p,
     [data-testid="stSidebar"] .streamlit-expanderHeader p {
         display: flex !important;
         align-items: center !important;
         gap: 8px !important;
+        color: #FFFFFF !important;
     }
 
     /* Step row - icon and expander inline */
