@@ -490,9 +490,15 @@ st.markdown("""
         border-radius: 12px !important;
     }
 
-    /* Slider track - grey instead of orange to avoid focus highlight issues */
+    /* Slider track - light grey */
     .stSlider [data-baseweb="slider"] > div > div {
+        background: #E0E0E0 !important;
+    }
+
+    /* Slider thumb (the draggable part) - dark */
+    .stSlider [data-baseweb="slider"] [role="slider"] {
         background: #666666 !important;
+        border-color: #666666 !important;
     }
 
     /* Remove ALL backgrounds from slider labels */
