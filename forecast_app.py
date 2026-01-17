@@ -278,8 +278,18 @@ st.markdown("""
 
     [data-testid="stSidebar"] .stButton > button {
         height: 52px !important;
-        opacity: 0 !important;
+        background: transparent !important;
+        opacity: 1 !important;
         cursor: pointer !important;
+        color: transparent !important;
+    }
+
+    [data-testid="stSidebar"] .stButton > button:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    [data-testid="stSidebar"] .stButton > button * {
+        visibility: hidden !important;
     }
 
     /* Data indicator in sidebar */
