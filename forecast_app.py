@@ -229,21 +229,31 @@ st.markdown("""
         padding: 12px 14px 12px 58px;
     }
 
-    /* Generate button styling */
+    /* Sidebar nav-style button (How It Works) */
     [data-testid="stSidebar"] .stButton > button {
-        background: linear-gradient(135deg, #FF9500 0%, #E68600 100%) !important;
-        color: #FFFFFF !important;
-        font-weight: 600 !important;
-        padding: 16px 24px !important;
-        font-size: 15px !important;
-        margin-top: 8px;
+        background: transparent !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500 !important;
+        padding: 10px 14px !important;
+        font-size: 14px !important;
+        margin: 0;
         width: 100%;
+        border: none !important;
+        border-radius: 10px !important;
+        text-align: left !important;
+        justify-content: flex-start !important;
+        transition: all 0.2s ease !important;
     }
 
     [data-testid="stSidebar"] .stButton > button:hover {
-        background: linear-gradient(135deg, #E68600 0%, #CC7700 100%) !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(255, 149, 0, 0.4);
+        background: rgba(255, 255, 255, 0.08) !important;
+        transform: none;
+        box-shadow: none;
+    }
+
+    [data-testid="stSidebar"] .stButton > button:focus {
+        box-shadow: none !important;
+        outline: none !important;
     }
 
     /* Data indicator in sidebar */
@@ -1547,30 +1557,35 @@ def main():
         # =====================================================================
         st.markdown('<div class="sidebar-section-label">INFO</div>', unsafe_allow_html=True)
 
-        with st.expander("ℹ️  How It Works", expanded=False):
+        # Initialize session state for toggle
+        if 'show_how_it_works' not in st.session_state:
+            st.session_state.show_how_it_works = False
+
+        # Toggle button styled as nav item
+        if st.button("ℹ️  How It Works", key="how_it_works_btn", use_container_width=True):
+            st.session_state.show_how_it_works = not st.session_state.show_how_it_works
+
+        if st.session_state.show_how_it_works:
             st.markdown("""
-            **Forecasting Method**
-
-            Uses **Exponential Smoothing** (Holt-Winters):
-            - Adapts to data trends
-            - Captures seasonal patterns
-            - Reliable short-term forecasts
-
-            ---
-
-            **Model Selection**
-
-            - **24+ months:** Full seasonal + trend
-            - **12-23 months:** Trend with damping
-            - **6-11 months:** Simple trend
-            - **< 6 months:** Not supported
-
-            ---
-
-            **Privacy**
-
-            All processing is local. Your data never leaves your computer.
-            """)
+            <div style="padding: 12px 0; font-size: 13px; line-height: 1.6;">
+            <p style="margin-bottom: 12px;"><strong>Forecasting Method</strong></p>
+            <p style="margin-bottom: 8px;">Uses <strong>Exponential Smoothing</strong> (Holt-Winters):</p>
+            <ul style="margin: 0 0 16px 16px; padding: 0;">
+                <li>Adapts to data trends</li>
+                <li>Captures seasonal patterns</li>
+                <li>Reliable short-term forecasts</li>
+            </ul>
+            <p style="margin-bottom: 12px;"><strong>Model Selection</strong></p>
+            <ul style="margin: 0 0 16px 16px; padding: 0;">
+                <li><strong>24+ months:</strong> Full seasonal + trend</li>
+                <li><strong>12-23 months:</strong> Trend with damping</li>
+                <li><strong>6-11 months:</strong> Simple trend</li>
+                <li><strong>< 6 months:</strong> Not supported</li>
+            </ul>
+            <p style="margin-bottom: 8px;"><strong>Privacy</strong></p>
+            <p>All processing is local. Your data never leaves your computer.</p>
+            </div>
+            """, unsafe_allow_html=True)
 
     # ==========================================================================
     # MAIN CONTENT AREA - Vertical Workflow
