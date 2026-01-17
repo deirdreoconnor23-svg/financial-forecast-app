@@ -495,27 +495,40 @@ st.markdown("""
         background: #FF9500 !important;
     }
 
-    /* Remove orange highlight ONLY on slider min/max labels when focused */
+    /* Remove orange focus ring from slider min/max labels */
     .stSlider [data-testid="stTickBarMin"],
-    .stSlider [data-testid="stTickBarMax"] {
+    .stSlider [data-testid="stTickBarMax"],
+    .stSlider [data-testid="stTickBarMin"] *,
+    .stSlider [data-testid="stTickBarMax"] * {
         background: transparent !important;
         background-color: transparent !important;
         box-shadow: none !important;
         outline: none !important;
+        border: none !important;
     }
 
-    /* Remove focus outline from slider labels only */
-    .stSlider [data-testid="stTickBarMin"]:focus,
-    .stSlider [data-testid="stTickBarMin"]:focus-visible,
-    .stSlider [data-testid="stTickBarMax"]:focus,
-    .stSlider [data-testid="stTickBarMax"]:focus-visible {
-        outline: none !important;
+    /* Target Streamlit's focus indicator specifically */
+    .stSlider div[data-focused="true"],
+    .stSlider [data-focused="true"] {
+        background: transparent !important;
         box-shadow: none !important;
+    }
+
+    /* Remove any orange/primary color backgrounds in slider area except track */
+    .stSlider > div > div > div:first-child > div,
+    .stSlider > div > div > div:last-child > div {
         background: transparent !important;
     }
 
     /* Ensure slider value/thumb display doesn't have background */
     .stSlider [data-testid="stThumbValue"] {
+        background: transparent !important;
+    }
+
+    /* Override Streamlit primary color on focus for slider labels */
+    .stSlider [style*="background-color: rgb(255, 149, 0)"],
+    .stSlider [style*="background: rgb(255, 149, 0)"] {
+        background-color: transparent !important;
         background: transparent !important;
     }
 
