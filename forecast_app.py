@@ -532,6 +532,31 @@ st.markdown("""
         background: transparent !important;
     }
 
+    /* Safari-specific focus removal for slider */
+    .stSlider *:focus {
+        -webkit-appearance: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+    }
+
+    .stSlider input:focus,
+    .stSlider div:focus {
+        -webkit-tap-highlight-color: transparent !important;
+        outline: none !important;
+    }
+
+    /* Nuclear option: hide ALL focus indicators in slider except track */
+    .stSlider [data-testid="stTickBarMin"] > div,
+    .stSlider [data-testid="stTickBarMax"] > div,
+    .stSlider [data-testid="stTickBarMin"] span,
+    .stSlider [data-testid="stTickBarMax"] span {
+        background: transparent !important;
+        background-color: transparent !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
     /* Expander */
     .streamlit-expanderHeader {
         background: #FFFFFF !important;
