@@ -127,7 +127,7 @@ st.markdown("""
         border-color: rgba(159, 122, 234, 0.3);
     }
 
-    /* Nav item style like inspiration */
+    /* Nav item style like Weavy inspiration */
     .nav-item {
         display: flex;
         align-items: center;
@@ -137,6 +137,7 @@ st.markdown("""
         margin: 4px 0;
         cursor: pointer;
         transition: all 0.2s ease;
+        text-decoration: none;
     }
 
     .nav-item:hover {
@@ -144,7 +145,7 @@ st.markdown("""
     }
 
     .nav-item.active {
-        background: rgba(255, 149, 0, 0.15);
+        background: rgba(72, 187, 120, 0.15);
     }
 
     .nav-item-icon {
@@ -159,13 +160,73 @@ st.markdown("""
     }
 
     .nav-item.active .nav-item-icon {
-        background: #FF9500;
+        background: rgba(72, 187, 120, 0.25);
     }
 
     .nav-item-text {
         font-size: 14px;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Section label style like Weavy "MAIN MENU" / "INVESTMENTS" */
+    .sidebar-section-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.4) !important;
+        margin: 24px 0 12px 14px;
+    }
+
+    /* Collapsible section styling */
+    .sidebar-section {
+        margin-bottom: 8px;
+    }
+
+    .sidebar-section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .sidebar-section-header:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-section-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .sidebar-section-icon.upload {
+        background: linear-gradient(135deg, rgba(255, 149, 0, 0.2) 0%, rgba(255, 149, 0, 0.1) 100%);
+        border: 1px solid rgba(255, 149, 0, 0.3);
+    }
+
+    .sidebar-section-icon.info {
+        background: linear-gradient(135deg, rgba(159, 122, 234, 0.2) 0%, rgba(159, 122, 234, 0.1) 100%);
+        border: 1px solid rgba(159, 122, 234, 0.3);
+    }
+
+    .sidebar-section-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        flex-grow: 1;
+    }
+
+    .sidebar-section-content {
+        padding: 12px 14px 12px 58px;
     }
 
     /* Generate button styling */
@@ -1417,34 +1478,37 @@ def main():
         data_loaded = False
 
         # =====================================================================
-        # DATA SOURCE - File Upload
+        # DATA SOURCE - Nav item style (like Weavy)
         # =====================================================================
-        col_icon1, col_exp1 = st.columns([0.12, 0.88])
-        with col_icon1:
-            st.markdown("""
-            <div class="step-icon upload" style="margin-top: 6px;">
+        st.markdown('<div class="sidebar-section-label">DATA</div>', unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="sidebar-section-header">
+            <div class="sidebar-section-icon upload">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="17 8 12 3 7 8"/>
                     <line x1="12" y1="3" x2="12" y2="15"/>
                 </svg>
             </div>
-            """, unsafe_allow_html=True)
-        with col_exp1:
-            with st.expander("Data Source", expanded=True):
-                uploaded_file = st.file_uploader(
-                    "Upload Excel file",
-                    type=['xlsx', 'xls'],
-                    help="Excel file with date and numeric columns",
-                    label_visibility="collapsed"
-                )
+            <span class="sidebar-section-title">Data Source</span>
+        </div>
+        """, unsafe_allow_html=True)
 
-                st.markdown("<div style='margin: 8px 0; text-align: center; color: rgba(255,255,255,0.3); font-size: 11px;'>— or —</div>", unsafe_allow_html=True)
+        # File uploader content (no expander, just indented content)
+        uploaded_file = st.file_uploader(
+            "Upload Excel file",
+            type=['xlsx', 'xls'],
+            help="Excel file with date and numeric columns",
+            label_visibility="collapsed"
+        )
 
-                use_sample = st.checkbox(
-                    "Use sample data",
-                    help="Try the app with demo financial data"
-                )
+        st.markdown("<div style='margin: 8px 0; text-align: center; color: rgba(255,255,255,0.3); font-size: 11px;'>— or —</div>", unsafe_allow_html=True)
+
+        use_sample = st.checkbox(
+            "Use sample data",
+            help="Try the app with demo financial data"
+        )
 
         # Load data based on selection
         data_status = None
@@ -1479,46 +1543,34 @@ def main():
                 st.error(status_msg)
 
         # =====================================================================
-        # HOW IT WORKS
+        # HOW IT WORKS - Nav item style (like Weavy)
         # =====================================================================
-        st.markdown("<hr style='margin: 16px 0; border-color: rgba(255,255,255,0.1);'>", unsafe_allow_html=True)
+        st.markdown('<div class="sidebar-section-label">INFO</div>', unsafe_allow_html=True)
 
-        col_icon_info, col_exp_info = st.columns([0.12, 0.88])
-        with col_icon_info:
+        with st.expander("ℹ️  How It Works", expanded=False):
             st.markdown("""
-            <div class="step-icon info" style="margin-top: 6px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 16v-4"/>
-                    <path d="M12 8h.01"/>
-                </svg>
-            </div>
-            """, unsafe_allow_html=True)
-        with col_exp_info:
-            with st.expander("How It Works"):
-                st.markdown("""
-                **Forecasting Method**
+            **Forecasting Method**
 
-                Uses **Exponential Smoothing** (Holt-Winters):
-                - Adapts to data trends
-                - Captures seasonal patterns
-                - Reliable short-term forecasts
+            Uses **Exponential Smoothing** (Holt-Winters):
+            - Adapts to data trends
+            - Captures seasonal patterns
+            - Reliable short-term forecasts
 
-                ---
+            ---
 
-                **Model Selection**
+            **Model Selection**
 
-                - **24+ months:** Full seasonal + trend
-                - **12-23 months:** Trend with damping
-                - **6-11 months:** Simple trend
-                - **< 6 months:** Not supported
+            - **24+ months:** Full seasonal + trend
+            - **12-23 months:** Trend with damping
+            - **6-11 months:** Simple trend
+            - **< 6 months:** Not supported
 
-                ---
+            ---
 
-                **Privacy**
+            **Privacy**
 
-                All processing is local. Your data never leaves your computer.
-                """)
+            All processing is local. Your data never leaves your computer.
+            """)
 
     # ==========================================================================
     # MAIN CONTENT AREA - Vertical Workflow
