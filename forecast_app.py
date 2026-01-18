@@ -1557,11 +1557,17 @@ def main():
         # Variables to track data state
         df = None
         data_loaded = False
+        uploaded_file = None
+        use_sample = False
 
         # =====================================================================
         # DATA SOURCE - Nav item style (like Weavy)
         # =====================================================================
         st.markdown('<div class="sidebar-section-label">DATA</div>', unsafe_allow_html=True)
+
+        # Initialize session state for data source toggle (default expanded)
+        if 'show_data_source' not in st.session_state:
+            st.session_state.show_data_source = True
 
         st.markdown("""
         <div class="sidebar-section-header">
@@ -1576,20 +1582,25 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-        # File uploader content (no expander, just indented content)
-        uploaded_file = st.file_uploader(
-            "Upload Excel file",
-            type=['xlsx', 'xls'],
-            help="Excel file with date and numeric columns",
-            label_visibility="collapsed"
-        )
+        # Hidden button for toggle functionality
+        if st.button("Toggle Data Source", key="data_source_btn", use_container_width=True):
+            st.session_state.show_data_source = not st.session_state.show_data_source
 
-        st.markdown("<div style='margin: 8px 0; text-align: center; color: rgba(255,255,255,0.3); font-size: 11px;'>— or —</div>", unsafe_allow_html=True)
+        # File uploader content (collapsible)
+        if st.session_state.show_data_source:
+            uploaded_file = st.file_uploader(
+                "Upload Excel file",
+                type=['xlsx', 'xls'],
+                help="Excel file with date and numeric columns",
+                label_visibility="collapsed"
+            )
 
-        use_sample = st.checkbox(
-            "Use sample data",
-            help="Try the app with demo financial data"
-        )
+            st.markdown("<div style='margin: 8px 0; text-align: center; color: rgba(255,255,255,0.3); font-size: 11px;'>— or —</div>", unsafe_allow_html=True)
+
+            use_sample = st.checkbox(
+                "Use sample data",
+                help="Try the app with demo financial data"
+            )
 
         # Load data based on selection
         data_status = None
@@ -1611,8 +1622,8 @@ def main():
                 data_loaded = True
                 data_status = ("success", uploaded_file.name)
 
-        # Show status
-        if data_status:
+        # Show status (only when data source is expanded)
+        if st.session_state.show_data_source and data_status:
             status_type, status_msg = data_status
             if status_type == "success":
                 st.markdown(f"""
