@@ -225,6 +225,17 @@ st.markdown("""
         flex-grow: 1;
     }
 
+    .sidebar-section-chevron {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease;
+        opacity: 0.5;
+    }
+
+    .sidebar-section-chevron.expanded {
+        transform: rotate(180deg);
+    }
+
     .sidebar-section-content {
         padding: 12px 14px 12px 58px;
     }
@@ -1569,7 +1580,9 @@ def main():
         if 'show_data_source' not in st.session_state:
             st.session_state.show_data_source = True
 
-        st.markdown("""
+        # Dynamic chevron class based on state
+        data_chevron_class = "expanded" if st.session_state.show_data_source else ""
+        st.markdown(f"""
         <div class="sidebar-section-header">
             <div class="sidebar-section-icon upload">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -1579,6 +1592,9 @@ def main():
                 </svg>
             </div>
             <span class="sidebar-section-title">Data Source</span>
+            <svg class="sidebar-section-chevron {data_chevron_class}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1643,8 +1659,9 @@ def main():
         if 'show_how_it_works' not in st.session_state:
             st.session_state.show_how_it_works = False
 
-        # Custom styled header (matching Data Source style)
-        st.markdown("""
+        # Dynamic chevron class based on state
+        info_chevron_class = "expanded" if st.session_state.show_how_it_works else ""
+        st.markdown(f"""
         <div class="sidebar-section-header" id="how-it-works-header">
             <div class="sidebar-section-icon info">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -1654,6 +1671,9 @@ def main():
                 </svg>
             </div>
             <span class="sidebar-section-title">How It Works</span>
+            <svg class="sidebar-section-chevron {info_chevron_class}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
         </div>
         """, unsafe_allow_html=True)
 
